@@ -107,7 +107,7 @@ window.addEventListener('load', (event) => {
  */
 upgrades = [
     {
-        name: 'Fin sop',
+        name: 'Pickaxe',
         cost: 10,
         amount: 1,
     },
@@ -156,7 +156,7 @@ function createCard(upgrade) {
             moneyPerClick++;
             money -= upgrade.cost;
             upgrade.cost *= 1.5;
-            cost.textContent = 'Köp för ' + upgrade.cost + ' benbitar';
+            cost.textContent = 'Buy for ' + upgrade.cost + ' ores';
             moneyPerSecond += upgrade.amount;
             message('Grattis du har lockat till dig fler besökare!', 'success');
         } else {

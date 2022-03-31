@@ -9,9 +9,12 @@
  */
 const clickerButton = document.querySelector('#click');
 const moneyTracker = document.querySelector('#money');
+const ingotTracker = document.querySelector('#ingot');
 const mpsTracker = document.querySelector('#mps'); // money per second
+const ipsTracker = document.querySelector('#forge'); // ingots per second
 const mpcTracker = document.querySelector('#mpc'); // money per click
 const upgradeList = document.querySelector('#upgradelist');
+const forgeupgradeList = document.querySelector('#forgeupgradelist');
 const msgbox = document.querySelector('#msgbox');
 
 /* Följande variabler använder vi för att hålla reda på hur mycket pengar som
@@ -21,10 +24,13 @@ const msgbox = document.querySelector('#msgbox');
  * värden, utan då använder vi let.
  * Läs mer: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
  */
-let money = 0;
-let moneyPerClick = 1;
-let moneyPerSecond = 0;
+let Ore = 0;
+let Ingots = 0;
+let OrePerClick = 1;
+let OrePerSecond = 0;
+let IngotsPerSecond = 0;
 let last = 0;
+let furnace = 0;
 
 let achievementTest = false;
 
@@ -42,7 +48,7 @@ clickerButton.addEventListener(
     'click',
     () => {
         // vid click öka score med 1
-        money += moneyPerClick;
+        Ore += OrePerClick;
         // console.log(clicker.score);
     },
     false
@@ -58,20 +64,27 @@ clickerButton.addEventListener(
  * Sist i funktionen så kallar den på sig själv igen för att fortsätta uppdatera.
  */
 function step(timestamp) {
-    moneyTracker.textContent = Math.round(money);
-    mpsTracker.textContent = moneyPerSecond;
-    mpcTracker.textContent = moneyPerClick;
+    moneyTracker.textContent = Math.round(Ore);
+    ingotTracker.textContent = Math.round(Ingots);
+    mpsTracker.textContent = OrePerSecond;
+    mpcTracker.textContent = OrePerClick;
+    ipsTracker.textContent = IngotsPerSecond;
 
     if (timestamp >= last + 1000) {
-        money += moneyPerSecond;
+        Ore += OrePerSecond;
         last = timestamp;
+    }
+    if (timestamp >= last + 5000) {
+        Ingots += IngotsPerSecond;
+        Ore -= IngotsPerSecond
+        forge = timestamp;
     }
 
     // exempel på hur vi kan använda värden för att skapa tex 
     // achievements. Titta dock på upgrades arrayen och gör något rimligare om du
     // vill ha achievements.
     // på samma sätt kan du även dölja uppgraderingar som inte kan köpas
-    if (moneyPerClick == 10 && !achievementTest) {
+    if (OrePerClick == 10 && !achievementTest) {
         achievementTest = true;
         message('Du har hittat en FOSSIL!', 'achievement');
     }
@@ -95,6 +108,9 @@ window.addEventListener('load', (event) => {
     upgrades.forEach((upgrade) => {
         upgradeList.appendChild(createCard(upgrade));
     });
+    forgeupgrades.forEach((fupgrade) => {
+        forgeupgradeList.appendChild(createCard(fupgrade));  
+    });
     window.requestAnimationFrame(step);
 });
 
@@ -105,21 +121,43 @@ window.addEventListener('load', (event) => {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
  */
-upgrades = [
+upgrades = [ /*clickupgrades*/
     {
         name: 'Pickaxe',
         cost: 10,
-        amount: 1,
+        clicks: 1,
     },
     {
         name: 'Spade',
         cost: 100,
-        amount: 10,
+        clicks: 10,
     },
     {
-        name: 'Hjälpreda',
+        name: 'Needlessly Large Pickaxe',
         cost: 1000,
-        amount: 100,
+        clicks: 100,
+    },
+    {
+        name: 'Novice Dwarf',
+        cost: 2,
+        amount: 1,
+    },
+];
+forgeupgrades = [
+    {
+        name: 'Furnace',
+        cost: 10,
+        fuel: 1,
+    },
+    {
+        name: 'Blast Furnace',
+        cost: 100,
+        fuel: 15,
+    },
+    {
+        name: 'Forge',
+        cost: 1000,
+        fuel: 100,
     },
 ];
 
@@ -147,20 +185,25 @@ function createCard(upgrade) {
     const header = document.createElement('p');
     header.classList.add('title');
     const cost = document.createElement('p');
-
-    header.textContent = `${upgrade.name}, +${upgrade.amount} per sekund.`;
-    cost.textContent = `Köp för ${upgrade.cost} benbitar.`;
+    if (upgrade.amount) {
+        header.textContent = `${upgrade.name}, +${upgrade.amount} per second.`;
+        cost.textContent = `Buy for ${upgrade.cost} ingots.`;
+    } else if(upgrade.fuel){
+        header.textContent = `${upgrade.name}, +${upgrade.fuel} per tid.e.`;
+        cost.textContent = `Buy for ${upgrade.cost} ingots.`;
+    } else{
+        header.textContent = `${upgrade.name}, +${upgrade.clicks} per click.`;
+        cost.textContent = `Buy for ${upgrade.cost} ores.`;
+    }
 
     card.addEventListener('click', (e) => {
-        if (money >= upgrade.cost) {
-            moneyPerClick++;
-            money -= upgrade.cost;
+        if (Ore >= upgrade.cost) {
+            Ore -= upgrade.cost;
             upgrade.cost *= 1.5;
-            cost.textContent = 'Buy for ' + upgrade.cost + ' ores';
-            moneyPerSecond += upgrade.amount;
-            message('Grattis du har lockat till dig fler besökare!', 'success');
-        } else {
-            message('Du har inte råd.', 'warning');
+            Math.round (upgrade.cost)
+            cost.textContent = 'Buy for ' + upgrade.cost + ' ore';
+            OrePerSecond += upgrade.amount ? upgrade.amount : 0;
+            OrePerClick += upgrade.clicks ? upgrade.clicks : 0;
         }
     });
 
@@ -168,6 +211,7 @@ function createCard(upgrade) {
     card.appendChild(cost);
     return card;
 }
+
 
 /* Message visar hur vi kan skapa ett html element och ta bort det.
  * appendChild används för att lägga till och removeChild för att ta bort.

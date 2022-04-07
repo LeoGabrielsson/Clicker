@@ -108,6 +108,7 @@ window.addEventListener('load', (event) => {
     upgrades.forEach((upgrade) => {
         upgradeList.appendChild(createCard(upgrade));
     });
+    window.requestAnimationFrame(step);
     forgeupgrades.forEach((fupgrade) => {
         forgeupgradeList.appendChild(createCard(fupgrade));  
     });
@@ -115,7 +116,7 @@ window.addEventListener('load', (event) => {
 });
 
 /* En array med upgrades. Varje upgrade är ett objekt med egenskaperna name, cost
- * och amount. Önskar du ytterligare text eller en bild så går det utmärkt att
+ * och. Önskar du ytterligare text eller en bild så går det utmärkt att
  * lägga till detta.
  * Läs mer:
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
@@ -128,19 +129,29 @@ upgrades = [ /*clickupgrades*/
         clicks: 1,
     },
     {
-        name: 'Spade',
+        name: 'Shovel and Lantern',
         cost: 100,
         clicks: 10,
     },
     {
-        name: 'Needlessly Large Pickaxe',
-        cost: 1000,
-        clicks: 100,
+        name: 'Needlessly Large RunecraftTM Pickaxe',
+        cost: 10000,
+        clicks: 1000,
     },
     {
         name: 'Novice Dwarf',
-        cost: 2,
-        amount: 1,
+        cost: 10,
+        salary: 1,
+    },
+    {
+        name: 'Dwarf',
+        cost: 100,
+        salary: 1,
+    },
+    {
+        name: 'Elder Dwarf',
+        cost: 1000,
+        salary: 1,
     },
 ];
 forgeupgrades = [
@@ -185,9 +196,9 @@ function createCard(upgrade) {
     const header = document.createElement('p');
     header.classList.add('title');
     const cost = document.createElement('p');
-    if (upgrade.amount) {
-        header.textContent = `${upgrade.name}, +${upgrade.amount} per second.`;
-        cost.textContent = `Buy for ${upgrade.cost} ingots.`;
+    if (upgrade.salary) {
+        header.textContent = `${upgrade.name}, +${upgrade.salary} ores per second.`;
+        cost.textContent = `Hire for ${upgrade.cost} ingots.`;
     } else if(upgrade.fuel){
         header.textContent = `${upgrade.name}, +${upgrade.fuel} per tid.e.`;
         cost.textContent = `Buy for ${upgrade.cost} ingots.`;
@@ -200,9 +211,8 @@ function createCard(upgrade) {
         if (Ore >= upgrade.cost) {
             Ore -= upgrade.cost;
             upgrade.cost *= 1.5;
-            Math.round (upgrade.cost)
             cost.textContent = 'Buy for ' + upgrade.cost + ' ore';
-            OrePerSecond += upgrade.amount ? upgrade.amount : 0;
+            OrePerSecond += upgrade.salary ? upgrade.salary : 0;
             OrePerClick += upgrade.clicks ? upgrade.clicks : 0;
         }
     });

@@ -77,7 +77,7 @@ function step(timestamp) {
     if (timestamp >= last + 5000) {
         Ingots += IngotsPerSecond;
         Ore -= IngotsPerSecond
-        forge = timestamp;
+        last = timestamp;
     }
 
     // exempel på hur vi kan använda värden för att skapa tex 
@@ -138,6 +138,8 @@ upgrades = [ /*clickupgrades*/
         cost: 100000,
         clicks: 1000,
     },
+];
+forgeupgrades = [
     {
         name: 'Novice Dwarf',
         cost: 10,
@@ -149,12 +151,10 @@ upgrades = [ /*clickupgrades*/
         salary: 10,
     },
     {
-        name: 'Elder Dwarf',
+        name: 'Hire dwarfs at the Shining Golden Pavilion',
         cost: 1000,
         salary: 100,
     },
-];
-forgeupgrades = [
     {
         name: 'Furnace',
         cost: 10,
@@ -214,6 +214,7 @@ function createCard(upgrade) {
             cost.textContent = 'Buy for ' + Math.round(upgrade.cost) + ' ore';
             OrePerSecond += upgrade.salary ? upgrade.salary : 0;
             OrePerClick += upgrade.clicks ? upgrade.clicks : 0;
+            IngotsPerSecond += upgrade.fuel ? upgrade.fuel: 0;
         }
     });
 

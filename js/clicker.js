@@ -124,18 +124,18 @@ window.addEventListener('load', (event) => {
  */
 upgrades = [ /*clickupgrades*/
     {
-        name: 'Pickaxe',
+        name: 'Shovel and Lantern',
         cost: 10,
         clicks: 1,
     },
     {
-        name: 'Shovel and Lantern',
+        name: 'Pickaxe',
         cost: 100,
-        clicks: 10,
+        clicks: 5,
     },
     {
         name: 'Needlessly Large RunecraftTM Pickaxe',
-        cost: 10000,
+        cost: 100000,
         clicks: 1000,
     },
     {
@@ -146,12 +146,12 @@ upgrades = [ /*clickupgrades*/
     {
         name: 'Dwarf',
         cost: 100,
-        salary: 1,
+        salary: 10,
     },
     {
         name: 'Elder Dwarf',
         cost: 1000,
-        salary: 1,
+        salary: 100,
     },
 ];
 forgeupgrades = [
@@ -211,7 +211,7 @@ function createCard(upgrade) {
         if (Ore >= upgrade.cost) {
             Ore -= upgrade.cost;
             upgrade.cost *= 1.5;
-            cost.textContent = 'Buy for ' + upgrade.cost + ' ore';
+            cost.textContent = 'Buy for ' + Math.round(upgrade.cost) + ' ore';
             OrePerSecond += upgrade.salary ? upgrade.salary : 0;
             OrePerClick += upgrade.clicks ? upgrade.clicks : 0;
         }
@@ -221,7 +221,6 @@ function createCard(upgrade) {
     card.appendChild(cost);
     return card;
 }
-
 
 /* Message visar hur vi kan skapa ett html element och ta bort det.
  * appendChild används för att lägga till och removeChild för att ta bort.

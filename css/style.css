@@ -1,3 +1,10 @@
+/*
+--platinum: #e8e9ebff;
+--alabaster: #e0dfd5ff;
+--onyx: #313638ff;
+--orange-crayola: #ff773dff;
+--gunmetal: #2f323aff;
+*/
 /* reset */
 /* https://piccalil.li/blog/a-modern-css-reset/ */
 /* Box sizing rules */
@@ -60,6 +67,8 @@ input,
 button,
 textarea,
 select {
+    background-color: #FF773D;
+    color: #313638;
     font: inherit;
 }
 
@@ -92,8 +101,8 @@ select {
 body {
     display: flex;
     flex-direction: column;
-    background-color: #f8f8f8;
-    color: #121212;
+    background-color: #313638;
+    color: #ff773d;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 /* För att göra footern sticky så har vi flex på bodyn och då räcker det med 
@@ -146,6 +155,7 @@ footer {
        width: 100%;
        display: flex;
        justify-content: center;
+       background-color: #ff773d;
    }
 }
 /* centrera bilden */
@@ -216,13 +226,13 @@ footer {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    border: 1px solid #646464;
+    border: 1px solid #E0DFD5;
     margin: 0.5rem 0;
     padding: 1rem 0.5rem;
 }
 
 .card:hover {
-    background-color: #dfdfdf;
+    background-color: #2F323A;
 }
 /* klassen används på kortets titel, font-weight: 600 gör fonten fetare, en normal
  * font vikt är oftast 400

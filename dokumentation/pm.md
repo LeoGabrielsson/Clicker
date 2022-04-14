@@ -1,33 +1,43 @@
-# Titel
+# Azerlisia's Forges
 
-Leo G och datum.
+Leo G och 14-04-2022
+
+Titel: Azerlisias Forges
+
+The king has orderd you to make military supplies to enhance his army.
+
+Recruit dwarfs to help you forge the greatest equipments the land has ever seen.
+How many tools can you forge?
+
+
+URL: https://tyrkiskpeber.github.io/Clicker/
+
+Git: https://github.com/TyrkiskPeber/Clicker
 
 ## Inledning
 
-Här beskriver du kortfattat arbetets syfte/mål, arbetssätt, genomförande.
+Målet med uppgiften var att lära oss att arbeta med javaScript.
 
 ## Bakgrund
 
-Redovisa arbetets olika delar. Så att läsaren förstår vad du gjort och hur.
+Design - Baserat på färger jag förknippar med berg och smedjor gjorda i grotthallar.
 
-Använd gärna bilder för att illustrera.
+JavaScript - Jag har kopierat baskoden från Jens Andreasson, vår WU1 lärare som var snäll någ att ge oss en grundkod att arbeta utifrån. Jag har kämpat med att lägga till: 
+- En extra valuta
+- Mer och nya uppgraderingar
 
-För att lägga till bilder i markdown. Bilderna kan du ladda upp med Git som vanligt, länka dem med url eller filnamnet.
+Html - Jag bytte bara namn på uppgraderingarna från baskoden.
 
-```
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
-```
+CSS - Använde https://coolors.co för att skaffa ett färgschema som jag tyckte om. Jag tog sedan hexkoden för färgerna och bytte baskodens färger till de nyfunna färgerna.
 
 ## Positiva erfarenheter
 
-Här beskriver du vad som har gått bra i ditt projekt och analyserar varför. Hur ska du upprepa framgångarna.
+Att hitta färger och byta dem har varit den lättaste delen av arbetet. Naturligt vis har kopieringen av Jens kod också varit lätt.
 
 ## Negativa erfarenheter
 
-Här beskriver du det som du anser har gått mindre bra med ditt projekt och analyserar hur du kan undvika detta i framtida projekt.
+Det svåraste har varit att få dubble valuta att fungera, något som jag fortfarande inte har fått till.
 
 ## Sammanfattning
 
-Här redovisar du dina slutsatser, erfarenheter och lärdomar. Reflektera över din produkt och dess/dina utvecklingsmöjligheter.
-Vad kan vidareutvecklas och finns det utrymme att bygga vidare på projektet.
+Slutsatser, om man ska ändra på icke självskriven kod rekommenderar jag att LÄSA igenom koden först och sedan försöka göra ändringar. För att utveckla clickern skulle jag kunna fortsätta arbeta med och lära mig om javascript. Detta skulle nog kunna leda till ett komplett spel.
